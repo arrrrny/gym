@@ -66,6 +66,22 @@ proved they can wield the tool.
 Warmup grows the muscle. Exercises prove it under load. The gate only lets the
 proven through.
 
+## DROP CARD
+
+The gate is strict, but strict is not blind. A mis-fire at the gym is not a
+mistake to punish — it is a signal to keep. If at any point an outcome is not
+what you expected, STOP and drop a card:
+
+    I did X, expecting Y and Z happened, SO I DROPPED.
+
+The card lands in two redundant places by default: `drops/DROP-<agent>-<date>.md`
+and a GitHub issue. The mis-fire might be a bug in you, a bug in the software, or
+a discovery nobody saw coming. You do not decide which while you are mid-rep. You
+drop it, and the system grows from the miss instead of burying it.
+
+The `drop.mjs` helper and the full concept live at
+[github.com/arrrrny/drop-card](https://github.com/arrrrny/drop-card).
+
 ## THE SHAPE OF A REP (WARMUP)
 
 A rep is aCheck with a check. Not a check on the code — a check on YOU.

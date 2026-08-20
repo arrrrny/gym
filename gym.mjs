@@ -72,6 +72,10 @@ const exercises = modules.filter((e) => typeof e.evaluate === 'function');
 console.log(`GYM — ${warmups.length} warmup rep(s), ${exercises.length} exercise(s).`);
 console.log(`sandbox: ${SANDBOX}\n`);
 
+console.log('DROP CARD — at any point, if there is a mis-fire, STOP and drop a card:');
+console.log('  node drop.mjs --agent <you> --did "..." --expected "..." --happened "..." --where "GYM"');
+console.log('A mis-fire is not a mistake. It is a discovery. Drop it.\n');
+
 console.log(`PHASE 1 — WARMUP (${warmups.length} rep(s)). Grow or stay weak.\n`);
 let grown = 0;
 for (const ex of warmups) {
@@ -83,6 +87,7 @@ for (const ex of warmups) {
       grown++;
     } else {
       console.log(`    WEAK — ${res?.note || 'verify returned false'}\n`);
+      console.log(`    MIS-FIRE. Not a mistake — a signal. Drop a card:\n    node drop.mjs --agent <you> --where "GYM ${ex.id} ${ex.name}" --did "..." --expected "..." --happened "${res?.note || ''}"\n`);
     }
   } catch (e) {
     console.log(`    WEAK — ${e.message}\n`);
@@ -117,6 +122,7 @@ for (const ex of exercises) {
       passed++;
     } else {
       console.log(`    FAILED — ${r?.notes || 'evaluate returned false'}\n`);
+      console.log(`    MIS-FIRE. Not a mistake — a signal. Drop a card:\n    node drop.mjs --agent <you> --where "GYM ${ex.id} ${ex.name}" --did "..." --expected "..." --happened "${r?.notes || ''}"\n`);
     }
   } catch (e) {
     console.log(`    FAILED — ${e.message}\n`);
