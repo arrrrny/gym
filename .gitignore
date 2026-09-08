@@ -1,5 +1,12 @@
 gym/.done/
 gym/.sandbox/
 
+# bench runtime artifacts (per-run sandboxes + reports)
+bench/.runs/
+bench/reports/
+
 # drop cards (runtime)
 drops/
+
+# spec-kit worktrees
+.worktrees/

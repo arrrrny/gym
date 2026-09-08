@@ -127,4 +127,39 @@ and hope the operator figures it out. We forge the operator first.
 
 A tool nobody can wield is a statue. GYM turns statues into hands.
 
+## BENCH — BENCHMARK MODELS IN PARALLEL
+
+The operator GYM above grades one operator. BENCH grades many at once, on the
+same exercises, so you can compare models and pick the right tier for the job.
+
+    node bench/bench.mjs                       run all enabled agents
+    AGENTS=claude,codex node bench/bench.mjs   run only these agents
+    GYM_TIMEOUT=120 node bench/bench.mjs       cap each agent drive at 120s
+
+How it works:
+
+- Every agent gets its own isolated sandbox under `bench/.runs/<agentId>/`.
+- For each exercise the runner drives **all agents in parallel** (`Promise.all`),
+  hands each one the brief and the real sandbox path, then grades what it left
+  with the exercise's own `evaluate()`.
+- Results aggregate into a matrix: pass/fail per cell, per-cell timing, cost per
+  tier, and cost-efficiency (`$/pass`) — exactly the price-tier decision you
+  wanted to make.
+
+An agent is any module in `bench/agents/` exporting:
+
+    { id, label, tier, cost, async drive({ brief, sandbox, timeoutMs }) { ... } }
+
+- `solver` / `flaky` / `blind` are demo script agents (no keys needed) so the
+  harness runs offline.
+- `claude.mjs` is the real-model template: a thin `cliAgent()` wrapper that
+  spawns any CLI coding agent (`claude`, `codex`, `kimi`, `aider`...) with the
+  brief and sandbox. It is `disabled` by default — enable it with
+  `AGENTS=claude`. Set `cost` to your real USD per exercise to power the
+  `$/pass` column.
+
+To benchmark a new model, drop one file in `bench/agents/` and rerun. Reports
+land in `bench/reports/<stamp>.md` and `bench/reports/latest.json` so you can
+track a model's score over time.
+
 WTF or nothing.
